@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/primary_navy_blue</item>
+
+        <!--        <item name="android:windowSharedElementEnterTransition">-->
+        <!--            @transition/shared_image-->
+        <!--        </item>-->
+        <!--        <item name="android:windowSharedElementExitTransition">-->
+        <!--            @transition/shared_image-->
+        <!--        </item>-->
+
+
+    </style>
+
+    <style name="MobileInput" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textSize">@dimen/mobile_button_font_size_header</item>
+        <item name="android:textColor">@color/font_navy_blue</item>
+        <item name="android:textColorHint">@color/font_navy_blue</item>
+    </style>
+    <!--    <style name="MobileInput" parent="Widget.AppCompat.Button.Colored">-->
+    <!--        <item name="android:layout_width">0dp</item>-->
+    <!--        <item name="android:layout_height">@dimen/shape_height_mobile</item>-->
+    <!--        <item name="android:layout_marginTop">4dp</item>-->
+    <!--        <item name="android:layout_marginBottom">5dp</item>-->
+    <!--        <item name="android:paddingLeft">@dimen/text_padding</item>-->
+    <!--        <item name="android:paddingRight">@dimen/text_padding</item>-->
+    <!--        <item name="android:textSize">@dimen/mobile_button_font_size_header</item>-->
+    <!--        <item name="android:textColor">@color/font_navy_blue</item>-->
+    <!--        <item name="android:textColorHint">@color/font_navy_blue</item>-->
+    <!--        <item name="android:gravity">left|center_vertical</item>-->
+    <!--        <item name="android:background">@drawable/input_field</item>-->
+    <!--    </style>-->
+
+    <style name="TextViewHeader">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/mobile_button_font_size_header</item>
+        <item name="android:textColor">@color/font_navy_blue</item>
+        <item name="android:gravity">left|center_vertical</item>
+
+    </style>
+
+    <style name="TextViewHeader2nd">
+
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/mobile_button_font_size_header_2nd</item>
+        <item name="android:textColor">@color/font_navy_blue</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+    </style>
+
+    <style name="TextViewNormalText">
+        <item name="android:textSize">@dimen/mobile_button_font_size_normal_text</item>
+        <item name="android:textColor">@color/font_navy_blue</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+
+
+</resources>

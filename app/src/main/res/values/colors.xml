@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="top_background">#d0d7c3</color>
+
+    <color name="colorPrimary">#2c3a8a</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+
+
+    <color name="primary_navy_blue">#2c3a8a</color>
+    <color name="primary_navy_blue_on_click">#596bd4</color>
+    <color name="primary_red">#e43356</color>
+    <color name="primary_red_on_click">#f86482</color>
+    <color name="primary_blue">#0082d6</color>
+    <color name="primary_blue_on_click">#00b0f0</color>
+
+    <color name="secondary_purple">#596086</color>
+    <color name="secondary_grey">#c4c8dd</color>
+    <color name="secondary_2nd_grey">#a1a5b2</color>
+    <color name="disabled_1st">#e8e9f1</color>
+    <color name="disabled_2nd">#acafc6</color>
+
+    <color name="additional_1st">#fdd127</color>
+    <color name="additional_2nd">#15a8a7</color>
+    <color name="additional_3rd">#efaf24</color>
+
+    <color name="alarms_background">#FFFFFF</color>
+
+    <color name="background_color">#f4f6fe</color>
+
+    <color name="font_navy_blue">#596086</color>
+    <color name="font_grey">#e8e9f1</color>
+
+    <color name="icon_color">#FFFFFF</color>
+    <color name="yellow_status_alarm">#fdd127</color>
+    <!--        <color name="font_grey">#f6f7fa</color>-->
+
+
+    <color name="battery_100">#e8e9f1</color>
+    <color name="battery_75">#e8e9f1</color>
+    <color name="battery_50">#e8e9f1</color>
+    <color name="battery_25">#e8e9f1</color>
+
+
+
+
+
+
+</resources>

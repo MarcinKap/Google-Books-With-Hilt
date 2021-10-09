@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/drawable-v24/no_photo.xml" value="0.15260416666666668" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout-land/fragment_book_details.xml" value="0.31040564373897706" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/activity_main.xml" value="0.15520833333333334" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/adapter_book_details.xml" value="0.20516304347826086" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/adapter_section_book.xml" value="0.14990942028985507" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/adapter_single_book.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/content_main.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/fragment_book_details.xml" value="0.140625" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/fragment_book_list.xml" value="0.264" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/fragment_book_pager.xml" value="0.13489583333333333" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/fragment_first.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/fragment_first_page.xml" value="0.176" />
+        <entry key="..\:/Users/marci/AndroidStudioProjects/AndroidGoogleBooksAPIHilt/app/src/main/res/layout/fragment_second.xml" value="0.159375" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

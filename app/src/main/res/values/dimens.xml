@@ -1,0 +1,65 @@
+<resources>
+        <dimen name="fab_margin">16dp</dimen>
+
+
+
+    <!--    Font size-->
+    <dimen name="mobile_button_font_size_header">22sp</dimen>
+    <dimen name="mobile_button_font_size_header_2nd">19sp</dimen>
+    <!--    <dimen name="mobile_button_font_size_header_3rd">18sp</dimen>-->
+    <dimen name="mobile_button_font_size_normal_text">17sp</dimen>
+
+
+    <dimen name="text_padding">40dp</dimen>
+    <dimen name="shape_height_mobile">66.67dp</dimen>
+
+    <dimen name="cornerRadius">12dp</dimen>
+    <dimen name="stroke_thickness">1dp</dimen>
+
+    <!--    <dimen name="user_id_font_size">23sp</dimen>-->
+    <!--    <dimen name="small_text_font_size">17sp</dimen>-->
+
+    <!--    <dimen name="alarm_name_font_size">22sp</dimen>-->
+    <!--    <dimen name="data_and_time_font_size">15sp</dimen>-->
+    <!--    <dimen name="location_font_size">21sp</dimen>-->
+
+
+    <!--    <dimen name="drop_down_vertical_offset">70dp</dimen>-->
+
+
+    <!--    &lt;!&ndash;    Stroke&ndash;&gt;-->
+    <!--    <dimen name="stroke_thickness">1dp</dimen>-->
+    <!--    <dimen name="stroke_in_alarm">2dp</dimen>-->
+
+    <!--    &lt;!&ndash;    Margins&ndash;&gt;-->
+    <!--    <dimen name="margin_alarm">17.67sp</dimen>-->
+    <!--    <dimen name="margin_top">5sp</dimen>-->
+    <!--    <dimen name="margin_bottom">5sp</dimen>-->
+    <!--    <dimen name="margin_mobile">20sp</dimen>-->
+    <!--    <dimen name="middle_part_margin_vertical">2sp</dimen>-->
+    <!--    <dimen name="middle_part_margin_horizontal">4sp</dimen>-->
+    <!--    <dimen name="margin_between_alarms">4dp</dimen>-->
+    <!--    <dimen name="margin_between_elements_in_alarms">2sp</dimen>-->
+
+    <!--    &lt;!&ndash;    Paddings&ndash;&gt;-->
+
+    <!--    <dimen name="text_padding_help_button">10dp</dimen>-->
+
+    <!--    Size-->
+
+    <!--    <dimen name="right_guideline_in_alarms_mobile">70dp</dimen>-->
+    <!--    <dimen name="left_guideline_in_alarms_mobile">60dp</dimen>-->
+
+
+
+    <!--    &lt;!&ndash;WEAR&ndash;&gt;-->
+    <!--    <dimen name="margin_between_buttons_wear">2dp</dimen>-->
+    <!--    <dimen name="height_log_in_wear">50dp</dimen>-->
+    <!--    <dimen name="upper_beam_height_wear">30dp</dimen>-->
+    <!--    <dimen name="wear_button_font_size">20sp</dimen>-->
+
+
+
+
+
+</resources>
