@@ -36,11 +36,11 @@ class BookListAdapter(
     val paidBooksListSize = booksListViewModel.getMutableLiveDataPaidBookListSizeObserver().value
     val itemsList = booksListViewModel.getMutableLiveDataObserver().value?.items
     lateinit var context: Context
-    private var viewHolderListener: ViewHolderListener? = null
+//    private var viewHolderListener: ViewHolderListener? = null
 
     //Comment: Setting ViewHolder - done
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        viewHolderListener = ViewHolderListenerImpl(booksListViewModel, viewPagerViewModel, fragment)
+//        viewHolderListener = ViewHolderListenerImpl(booksListViewModel, viewPagerViewModel, fragment)
         context = parent.context
         if (viewType == 0) { //Create section with title (Free/Paid books)
             return BookSectionViewHolder(
@@ -118,6 +118,8 @@ class BookListAdapter(
     inner class SingleBookViewHolder(val binding: AdapterSingleBookBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+
+
         private val bookImage = binding.imageBook
         private val bookTitle = binding.bookTitleTextView
         private val bookContainer = binding.singleBook
@@ -127,21 +129,69 @@ class BookListAdapter(
             bookTitle.text = singleBook.volumeInfo.title
             bookTitle.transitionName = singleBook.etag + "title"
             bookImage.transitionName = singleBook.etag
-
             setImage(singleBook)
-
             bookContainer.setOnClickListener {
-                    view ->
-                viewHolderListener?.onItemClicked(
-                    view,
-                    adapterPosition
-                )
+                onItemClicked()
             }
-
-//            bookImage.transitionName = java.lang.String.valueOf(singleBook)
-//            bookTitle.transitionName = singleBook.etag + "title"
-//            bookImage.transitionName = singleBook.etag
         }
+
+        fun onItemClicked() {
+            val bookImage: ImageView = binding.imageBook
+            val bookTitle: TextView = binding.bookTitleTextView
+
+            println("POZYCJA ADAPTERA NA LISCIE " + adapterPosition)
+
+            viewPagerViewModel.setBookPositionInRecyclerView(adapterPosition)
+            viewPagerViewModel.setBookPositionOnDownloadedList(
+                getBookPositionOnDownloadedListBasedFromPositionInRecyclerView(
+                    adapterPosition,
+                    booksListViewModel
+                )
+            )
+            // Exclude the clicked card from the exit transition (e.g. the card will disappear immediately
+            // instead of fading out with the rest to prevent an overlapping animation of fade and move).
+            (fragment.exitTransition as TransitionSet?)!!.excludeTarget(binding.root, true)
+
+            val extras = FragmentNavigatorExtras(
+                bookImage to bookImage.transitionName,
+                bookTitle to bookTitle.transitionName
+            )
+            Navigation.findNavController(binding.root)
+                .navigate(
+                    R.id.action_booksListFragment_to_bookPagerFragment,
+                    null,
+                    null,
+                    extras
+                )
+        }
+        private fun onLoadCompleted(position: Int) {
+            // Call startPostponedEnterTransition only when the 'selected' image loading is completed.
+            if (viewPagerViewModel.getBookPositionOnDownloadedList().value != position) {
+                return
+            }
+//        if (enterTransitionStarted.getAndSet(true)) {
+//            return
+//        }
+            fragment.startPostponedEnterTransition()
+        }
+
+
+
+        fun getBookPositionOnDownloadedListBasedFromPositionInRecyclerView(
+            position: Int,
+            booksListViewModel: BooksListViewModel
+        ): Int {
+            val freeItemsListSize =
+                booksListViewModel.getMutableLiveDataFreeBookListSizeObserver().value
+            if (position <= freeItemsListSize!! && freeItemsListSize != 0) {
+                return position - 1
+            } else if (position >= freeItemsListSize + 1 && freeItemsListSize != 0) {
+                return position - 2
+            } else {
+                return position - 1
+            }
+        }
+
 
         private fun setImage(singleBook: Items) {
             //Download image
@@ -162,7 +212,7 @@ class BookListAdapter(
                             target: Target<Drawable>?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            viewHolderListener?.onLoadCompleted(bookImage, adapterPosition)
+                            onLoadCompleted(adapterPosition)
                             return false
                         }
 
@@ -173,7 +223,7 @@ class BookListAdapter(
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            viewHolderListener?.onLoadCompleted(bookImage, adapterPosition)
+                            onLoadCompleted(adapterPosition)
                             return false
                         }
                     })
@@ -190,6 +240,10 @@ class BookListAdapter(
 
     }
 
+
+
+
+
     private fun getSingleBook(position: Int): Items? {
         if (position < freeBooksListSize?.plus(1) ?: 0 && freeBooksListSize != 0) {
             return itemsList?.get(position - 1)
@@ -199,92 +253,6 @@ class BookListAdapter(
             return itemsList?.get(position - 1)
         }
     }
-
-    /**
-     * A listener that is attached to all ViewHolders to handle image loading events and clicks.
-     */
-    interface ViewHolderListener {
-        fun onLoadCompleted(view: ImageView?, adapterPosition: Int)
-        fun onItemClicked(view: View?, adapterPosition: Int)
-    }
-
-    /**
-     * Default [ViewHolderListener] implementation.
-     */
-    class ViewHolderListenerImpl(
-        val booksListViewModel: BooksListViewModel,
-        val viewPagerViewModel: ViewPagerViewModel,
-        val fragment: Fragment
-    ) : ViewHolderListener {
-
-        override fun onLoadCompleted(view: ImageView?, adapterPosition: Int) {
-
-        }
-
-        override fun onItemClicked(view: View?, adapterPosition: Int) {
-
-
-            viewPagerViewModel.setBookPositionInRecyclerView(adapterPosition)
-
-            (fragment.exitTransition as TransitionSet?)!!.excludeTarget(view, true)
-
-
-            val bookImage: ImageView = view!!.findViewById(R.id.image_book)
-            val bookTitle: TextView = view.findViewById(R.id.book_title_text_view)
-
-
-
-            val position = getBookPositionOnDownloadedListBasedFromPositionInRecyclerView(
-                adapterPosition,
-                booksListViewModel
-            )
-            viewPagerViewModel.setBookPositionOnDownloadedList(position)
-
-
-            // Exclude the clicked card from the exit transition (e.g. the card will disappear immediately
-            // instead of fading out with the rest to prevent an overlapping animation of fade and move).
-
-            // Exclude the clicked card from the exit transition (e.g. the card will disappear immediately
-            // instead of fading out with the rest to prevent an overlapping animation of fade and move).
-//            (fragment.getExitTransition() as TransitionSet).excludeTarget(view, true)
-
-            val extras = FragmentNavigatorExtras(
-                bookImage to bookImage.transitionName,
-                bookTitle to bookTitle.transitionName
-            )
-            Navigation.findNavController(view!!)
-                .navigate(
-                    R.id.action_booksListFragment_to_bookPagerFragment,
-                    null,
-                    null,
-                    extras
-                )
-
-
-//            val viewPagerViewModel : ViewPagerViewModel by activityViewModels()
-            // Update the position.
-        }
-
-        fun getBookPositionOnDownloadedListBasedFromPositionInRecyclerView(
-            position: Int,
-            booksListViewModel: BooksListViewModel
-        ): Int {
-            val freeItemsListSize =
-                booksListViewModel.getMutableLiveDataFreeBookListSizeObserver().value
-
-            if (position <= freeItemsListSize!! && freeItemsListSize != 0) {
-                return position - 1
-            } else if (position >= freeItemsListSize + 1 && freeItemsListSize != 0) {
-                return position - 2
-            } else {
-                return position - 1
-            }
-        }
-
-
-    }
-
-
 }
 
 

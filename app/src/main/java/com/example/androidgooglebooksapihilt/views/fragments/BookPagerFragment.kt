@@ -2,8 +2,11 @@ package com.example.androidgooglebooksapihilt.views.fragments
 
 import BookPagerAdapter
 import android.app.Activity
+import android.content.ContentValues.TAG
+import android.content.ContextWrapper
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +15,20 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.SharedElementCallback
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.activityViewModels
+import androidx.core.view.allViews
+import androidx.fragment.app.*
+import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeBounds
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.androidgooglebooksapihilt.R
 import com.example.androidgooglebooksapihilt.databinding.FragmentBookPagerBinding
 import com.example.androidgooglebooksapihilt.views.viewModels.BooksListViewModel
 import com.example.androidgooglebooksapihilt.views.viewModels.ViewPagerViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.IllegalArgumentException
+import androidx.viewpager.widget.ViewPager
+import java.lang.reflect.Field
 
 
 @AndroidEntryPoint
@@ -44,42 +51,41 @@ class BookPagerFragment : Fragment() {
 
         // Set the current position and add a listener that will update the selection coordinator when
         // paging the images.
-        viewPager!!.setCurrentItem(viewPagerViewModel.getBookPositionOnDownloadedList().value!!, false)
+        viewPager!!.setCurrentItem(
+            viewPagerViewModel.getBookPositionOnDownloadedList().value!!,
+            false
+        )
 
         viewPager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+
+                super.onPageSelected(position)
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
                 viewPagerViewModel.setBookPositionOnDownloadedList(position)
                 viewPagerViewModel.setBookPositionInRecyclerView(
                     getBookPositionInRecyclerView(
                         position
                     )
                 )
-                super.onPageSelected(position)
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
             }
-
-//            override fun onPageScrolled(
-//                position: Int,
-//                positionOffset: Float,
-//                positionOffsetPixels: Int
-//            ) {
-//                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-//
-//
-//            }
         })
 
         prepareEnterSharedElementTransition()
 //        postponeEnterTransition()
-
-
-        activity?.let { hideKeyboard(it) }
 
 //         Avoid a postponeEnterTransition on orientation change, and postpone only of first creation.
         if (savedInstanceState == null) {
             postponeEnterTransition()
         }
 
-
+        activity?.let { hideKeyboard(it) }
         return binding.viewPager
     }
 
@@ -111,42 +117,6 @@ class BookPagerFragment : Fragment() {
         }
     }
 
-    private fun prepareExitSharedElementTransition(position: Int) {
-//        val transition = TransitionInflater
-//            .from(context)
-//            .inflateTransition(R.transition.image_shared_element_transition)
-//
-//        sharedElementReturnTransition = transition
-
-        // A similar mapping is set at the GridFragment with a setExitSharedElementCallback.
-        setExitSharedElementCallback(
-            object : SharedElementCallback() {
-                override fun onMapSharedElements(
-                    names: List<String>,
-                    sharedElements: MutableMap<String, View>
-                ) {
-                    // Locate the image view at the primary fragment (the ImageFragment that is currently
-                    // visible). To locate the fragment, call instantiateItem with the selection position.
-                    // At this stage, the method will simply return the fragment at the position and will
-                    // not create a new one.
-
-                    val currentFragment: Fragment? =
-                        (view?.context as AppCompatActivity).supportFragmentManager.findFragmentById(
-                            viewPagerViewModel.getBookPositionInRecyclerView().value!!
-                        )
-                    val view2: View? = currentFragment?.view
-                    if (view2 == null) {
-                        return;
-                    }
-
-                    val image: ImageView = view2.findViewById(R.id.image_book)
-                    image.transitionName =
-                        booksListViewModel.getMutableLiveDataObserver().value!!.items[position].etag
-                    sharedElements[image.transitionName] = image
-                }
-            })
-    }
-
 
     /**
      * Prepares the shared element transition from and back to the grid fragment.
@@ -160,30 +130,24 @@ class BookPagerFragment : Fragment() {
         // A similar mapping is set at the GridFragment with a setExitSharedElementCallback.
 
         // A similar mapping is set at the GridFragment with a setExitSharedElementCallback.
-//        setEnterSharedElementCallback(
-//            object : SharedElementCallback() {
-//                override fun onMapSharedElements(
-//                    names: List<String>,
-//                    sharedElements: MutableMap<String, View>
-//                ) {
-//                    // Locate the image view at the primary fragment (the ImageFragment that is currently
-//                    // visible). To locate the fragment, call instantiateItem with the selection position.
-//                    // At this stage, the method will simply return the fragment at the position and will
-//                    // not create a new one.
-//                    val currentFragment: Fragment? =
-//                        (view?.context as FragmentActivity).supportFragmentManager.findFragmentById(
-//                            viewPagerViewModel.getBookPositionInRecyclerView().value!!
-//                        )
-//                    val view = currentFragment!!.view ?: return
-//
-//                    // Map the first shared element name to the child ImageView.
-//                    sharedElements[names[0]] = view.findViewById(R.id.image)
-//                }
-//            })
-
+        setEnterSharedElementCallback(
+            object : SharedElementCallback() {
+                override fun onMapSharedElements(
+                    names: List<String>,
+                    sharedElements: MutableMap<String, View>
+                ) {
+                    val view =  viewPager!!.findViewHolderForAdapterPosition(viewPagerViewModel.getBookPositionOnDownloadedList().value!!)
+                    sharedElements[names[0]] = view!!.itemView.findViewById(R.id.image_book)
+                }
+            })
 
 
     }
+
+    fun ViewPager2.findViewHolderForAdapterPosition(position: Int): RecyclerView.ViewHolder? {
+        return (getChildAt(0) as RecyclerView).findViewHolderForAdapterPosition(position)
+    }
+
 
 
 }

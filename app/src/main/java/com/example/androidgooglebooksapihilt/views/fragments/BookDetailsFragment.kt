@@ -57,8 +57,8 @@ class BookDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentBookDetailsBinding.inflate(inflater, container, false)
-
         singleBook = arguments?.get("item") as Items
+
 
         val textViewDescriptionHeader: TextView = binding.bookDetailsDescriptionHeader
         val textViewDescriptionText: TextView = binding.bookDetailsDescription
@@ -69,7 +69,7 @@ class BookDetailsFragment : Fragment() {
 
         binding.bookTitleTextView.text = singleBook.volumeInfo.title
         binding.bookTitleTextView.transitionName = singleBook.etag + "title"
-        binding.imageBook.transitionName = singleBook.etag
+        bookImage.transitionName = singleBook.etag
 
         textViewAdditionalInformationHeader.text =
             resources.getString(R.string.additional_informations)
